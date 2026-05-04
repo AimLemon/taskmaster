@@ -1,0 +1,20 @@
+# Dependency folders (Library yang sangat berat)
+node_modules/
+taskmaster-backend/node_modules/
+taskmaster-frontend/node_modules/
+
+# Environment variables (File rahasia seperti password database/API Key)
+.env
+
+# Build folders (Hasil kompilasi React)
+build/
+dist/
+
+# Debugging logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files (Sampah sistem operasi)
+.DS_Store
+Thumbs.db
