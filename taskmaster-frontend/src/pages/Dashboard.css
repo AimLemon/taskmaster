@@ -1,0 +1,313 @@
+/* ==========================================
+   LAYOUT UTAMA
+   ========================================== */
+.dashboard-container {
+    background-color: #f0f7ff;
+    min-height: 100vh;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ==========================================
+   NAVBAR (HEADER)
+   ========================================== */
+.navbar {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    color: white;
+    padding: 12px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.brand-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-placeholder { font-size: 28px; }
+
+.brand-text h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.brand-text p {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.btn-add-task {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-task:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
+
+.profile-container {
+    text-align: center;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.profile-container:hover { opacity: 0.8; }
+
+.profile-circle { font-size: 24px; }
+.profile-container span { font-size: 11px; font-weight: 600; }
+
+/* ==========================================
+   PROGRESS SECTION
+   ========================================== */
+.progress-section { padding: 25px 50px; }
+
+.progress-card {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #334155;
+}
+
+.bar-outer {
+    background: #e2e8f0;
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.bar-inner {
+    background: linear-gradient(90deg, #3b82f6, #2dd4bf);
+    height: 100%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   GRID CARDS (GROUPING STYLE)
+   ========================================== */
+.task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 0 50px 50px;
+}
+
+.subject-group-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    height: fit-content;
+    transition: transform 0.2s;
+}
+
+.subject-header-clickable {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background: white;
+}
+
+.subject-header-clickable:hover { background: #f8fafc; }
+
+.subj-info { display: flex; align-items: center; gap: 12px; }
+.subj-info h3 { margin: 0; font-size: 16px; color: #1e293b; font-weight: 700; }
+
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.arrow { font-size: 10px; color: #94a3b8; transition: transform 0.3s ease; }
+.arrow.up { transform: rotate(180deg); }
+
+/* DROPDOWN LIST ITEM */
+.task-dropdown-list {
+    background: #fcfdfe;
+    border-top: 1px solid #f1f5f9;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.task-item-row {
+    padding: 14px 20px 14px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f8fafc;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.task-item-row:hover { background: #f1f7ff; }
+
+.task-main-info { display: flex; flex-direction: column; gap: 2px; }
+.task-title-mini { font-weight: 600; font-size: 14px; color: #334155; }
+.task-date-mini { font-size: 12px; color: #64748b; }
+.task-days-mini { font-weight: 700; font-size: 12px; color: #ef4444; }
+
+/* ==========================================
+   MODAL POP WINDOW (RAPIH & MODERN)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.btn-close-x {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.btn-close-x:hover {
+    color: #ef4444;
+}
+
+.modal-box h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #475569;
+}
+
+.input-group input, 
+.input-group select,
+.input-group textarea {
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box; /* Mencegah input melebar keluar modal */
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #3b82f6;
+}
+
+/* KHUSUS INPUT WARNA: Kotak pendek rapi */
+.input-group input[type="color"] {
+    width: 100%;
+    height: 40px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.subject-select-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-toggle-new {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-submit-form {
+    width: 100%;
+    padding: 12px;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-submit-form:hover {
+    background: #2563eb;
+}
+
+/* ==========================================
+   DETAIL MODAL ACTIONS
+   ========================================== */
+.detail-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.btn-edit-action { flex: 1; background: #3b82f6; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+.btn-delete-action { flex: 1; background: #fee2e2; color: #ef4444; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+.btn-cancel { background: #f1f5f9; color: #64748b; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+@media (max-width: 768px) {
+    .navbar { padding: 10px 20px; }
+    .progress-section { padding: 15px 20px; }
+    .task-grid { padding: 0 20px 20px; grid-template-columns: 1fr; }
+}

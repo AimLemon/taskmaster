@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 import './RegisterPage.css';
 
 const RegisterPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confPassword, setConfPassword] = useState('');
+  const [msg, setMsg] = useState(''); // Untuk menampilkan pesan error
   const navigate = useNavigate();
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      // Menghubungkan ke Backend (sesuaikan port jika bukan 5000)
+      await axios.post('http://localhost:5000/users', {
+        name: name,
+        email: email,
+        password: password,
+        confPassword: confPassword
+      });
+      // Jika berhasil, arahkan ke halaman Login
+      navigate("/login");
+    } catch (error) {
+      if (error.response) {
+        // Menampilkan pesan error dari backend (contoh: "Email sudah terdaftar")
+        setMsg(error.response.data.msg);
+      }
+    }
+  };
 
   return (
     <div className="register-container">
-      {/* Tombol kembali */}
       <button className="back-button" onClick={() => navigate(-1)}>
         <span>❮</span> Kembali
       </button>
@@ -24,31 +49,58 @@ const RegisterPage = () => {
         <p className="register-subtitle">Mulai atur tugas - tugasmu</p>
       </div>
 
-      <form className="register-form" onSubmit={(e) => e.preventDefault()}>
+      {/* Menampilkan Pesan Error jika ada */}
+      {msg && <p className="error-message" style={{ color: 'red', textAlign: 'center' }}>{msg}</p>}
+
+      <form className="register-form" onSubmit={handleRegister}>
         <div className="input-group">
           <span className="input-icon">👤</span>
-          <input type="text" placeholder="Username" required />
+          <input 
+            type="text" 
+            placeholder="Username" 
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required 
+          />
         </div>
 
         <div className="input-group">
           <span className="input-icon">✉</span>
-          <input type="email" placeholder="Email" required />
+          <input 
+            type="email" 
+            placeholder="Email" 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required 
+          />
         </div>
 
         <div className="input-group">
           <span className="input-icon">🔑</span>
-          <input type="password" placeholder="Password (Min. 6 Karakter)" required />
+          <input 
+            type="password" 
+            placeholder="Password (Min. 6 Karakter)" 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required 
+          />
           <span className="eye-icon">👁</span>
         </div>
 
         <div className="input-group">
           <span className="input-icon">🔑</span>
-          <input type="password" placeholder="Konfirmasi Password" required />
+          <input 
+            type="password" 
+            placeholder="Konfirmasi Password" 
+            value={confPassword}
+            onChange={(e) => setConfPassword(e.target.value)}
+            required 
+          />
           <span className="eye-icon">👁</span>
         </div>
 
-        {/* Tombol submit utama sesuai teks di gambar desain */}
-        <button type="submit" className="btn-register-submit">Login</button>
+        {/* Tombol diperbaiki teksnya menjadi "Daftar" agar tidak bingung */}
+        <button type="submit" className="btn-register-submit">Daftar</button>
         
         <button type="button" className="btn-google-register">
           <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" width="20" />

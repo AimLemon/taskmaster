@@ -1,142 +1,140 @@
-/* src/pages/LoginPage.css */
-.login-container {
+/* Reset Dasar & Kunci Scroll */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Mematikan scroll browser */
+}
+
+/* Container Utama */
+.login-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  /* Mengunci layar agar tidak scrollable */
-  height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  box-sizing: border-box;
-  
+  height: 100vh;
   background-color: #ffffff;
-  padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  position: relative;
+  box-sizing: border-box;
 }
 
-.back-button {
+/* Tombol Kembali */
+.top-nav {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 30px;
+}
+
+.btn-back {
   background: none;
   border: none;
   color: #1e3a8a;
   font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 16px;
 }
 
-.login-header {
+/* Kartu Login */
+.login-card {
+  width: 100%;
+  max-width: 360px; /* Ukuran pas agar tidak memicu scroll */
   text-align: center;
+}
+
+.login-brand {
   margin-bottom: 25px;
 }
 
-.login-icon {
-  width: 60px;
-  height: auto;
-  margin-bottom: 10px;
+.login-card h1 {
+  color: #1e3a8a;
+  font-size: 28px;
+  margin: 5px 0;
 }
 
-.login-title {
-  color: #1e3a8a; /* Biru gelap sesuai identitas TaskMaster */
-  font-size: 2.2rem;
-  font-weight: bold;
-  margin: 0;
+.login-card p {
+  color: #64748b;
+  font-size: 14px;
 }
 
-.login-subtitle {
-  color: #6b7280;
-  margin-top: 5px;
-  font-size: 1.1rem;
-}
-
-.login-form {
-  width: 100%;
-  max-width: 400px;
+/* Form Styling */
+.form-auth {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
-.input-group {
-  position: relative;
+.field-group input {
   width: 100%;
-}
-
-.input-group input {
-  width: 100%;
-  padding: 14px 15px 14px 45px;
-  border: 1.5px solid #d1d5db;
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 15px;
   box-sizing: border-box;
   outline: none;
-  transition: border-color 0.3s;
 }
 
-.input-group input:focus {
-  border-color: #3b82f6; /* Biru muda saat aktif */
+.field-group input:focus {
+  border-color: #3b82f6;
 }
 
-.input-icon {
-  position: absolute;
-  left: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #9ca3af;
-  font-size: 1.2rem;
-}
-
-.btn-login {
+/* Button Styling */
+.btn-primary {
   background-color: #3b82f6;
   color: white;
-  padding: 14px;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-top: 5px;
-  transition: background 0.3s;
-}
-
-.btn-login:hover {
-  background-color: #2563eb;
-}
-
-.btn-google-login {
-  background-color: white;
-  color: #3b82f6;
   padding: 12px;
-  border: 2px solid #3b82f6;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+.divider {
+  color: #94a3b8;
+  font-size: 12px;
+  margin: 5px 0;
+}
+
+.btn-google {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  transition: background 0.3s;
+  background: white;
+  border: 1px solid #3b82f6;
+  color: #1e3a8a;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.btn-google-login:hover {
-  background-color: #f0f7ff;
+.btn-google img {
+  width: 18px;
 }
 
-.signup-prompt {
+/* Alert Error */
+.alert-error {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.footer-text {
   margin-top: 25px;
-  color: #4b5563;
-  font-size: 0.95rem;
+  font-size: 14px;
+  color: #475569;
 }
 
-.signup-link {
+.footer-text a {
   color: #3b82f6;
   text-decoration: none;
   font-weight: 600;

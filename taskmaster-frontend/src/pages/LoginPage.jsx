@@ -1,53 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import './LoginPage.css';
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [msg, setMsg] = useState('');
   const navigate = useNavigate();
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/login', {
+        email: email,
+        password: password
+      });
+
+      // Menyimpan token ke localStorage agar 'Hai, Adyansyah!' muncul di Dashboard
+      localStorage.setItem('accessToken', response.data.accessToken);
+
+      navigate('/dashboard');
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.msg);
+      }
+    }
+  };
+
   return (
-    <div className="login-container">
-      {/* Tombol kembali ke Landing Page */}
-      <button className="back-button" onClick={() => navigate('/')}>
-        <span>❮</span> Kembali
-      </button>
-
-      <div className="login-header">
-        {/* Ikon Jam Buku sesuai desain Figma */}
-        <div className="login-icon">
-          <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="#1e3a8a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 7v5l3 3" />
-            <circle cx="12" cy="12" r="9" />
-            <path d="M16 21H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z" />
-          </svg>
-        </div>
-        <h1 className="login-title">Selamat Datang</h1>
-        <p className="login-subtitle">Masuk untuk mengatur tugasmu</p>
-      </div>
-
-      <form className="login-form" onSubmit={(e) => e.preventDefault()}>
-        <div className="input-group">
-          <span className="input-icon">✉</span>
-          <input type="email" placeholder="Email" required />
-        </div>
-
-        <div className="input-group">
-          <span className="input-icon">🔑</span>
-          <input type="password" placeholder="Password" required />
-          <span style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', cursor: 'pointer', color: '#9ca3af' }}>👁</span>
-        </div>
-
-        <button type="submit" className="btn-login">Login</button>
-        
-        <button type="button" className="btn-google-login">
-          <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" width="20" />
-          Lanjut dengan Google
+    <div className="login-wrapper">
+      <nav className="top-nav">
+        <button className="btn-back" onClick={() => navigate('/')}>
+          ❮ Kembali
         </button>
-      </form>
+      </nav>
 
-      <p className="signup-prompt">
-        Belum punya akun? <Link to="/register" className="signup-link">Daftar</Link>
-      </p>
+      <div className="login-card">
+        <div className="login-brand">
+          <div className="brand-logo">
+            <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="#1e3a8a" strokeWidth="2">
+              <path d="M12 7v5l3 3" />
+              <circle cx="12" cy="12" r="9" />
+            </svg>
+          </div>
+          <h1>Selamat Datang</h1>
+          <p>Masuk untuk mengatur tugasmu</p>
+        </div>
+
+        {msg && <div className="alert-error">{msg}</div>}
+
+        <form onSubmit={handleLogin} className="form-auth">
+          <div className="field-group">
+            <input 
+              type="email" 
+              placeholder="Email" 
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </div>
+
+          <div className="field-group">
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+            />
+          </div>
+
+          <button type="submit" className="btn-primary">Login</button>
+
+          <div className="divider">atau</div>
+
+          <button type="button" className="btn-google">
+            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="G" />
+            Lanjut dengan Google
+          </button>
+        </form>
+
+        <p className="footer-text">
+          Belum punya akun? <Link to="/register">Daftar</Link>
+        </p>
+      </div>
     </div>
   );
 };
