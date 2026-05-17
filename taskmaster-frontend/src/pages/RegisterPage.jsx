@@ -15,7 +15,7 @@ const RegisterPage = () => {
     e.preventDefault();
     try {
       // Menghubungkan ke Backend (sesuaikan port jika bukan 5000)
-      await axios.post('http://localhost:5000/users', {
+      await axios.post('http://localhost:5001/users', {
         name: name,
         email: email,
         password: password,

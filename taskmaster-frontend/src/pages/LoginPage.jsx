@@ -12,18 +12,23 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      // Membersihkan penulisan URL agar tidak ada karakter tersembunyi
+      const response = await axios.post('http://localhost:5001/login', {
         email: email,
         password: password
+      }, {
+        withCredentials: true
       });
 
-      // Menyimpan token ke localStorage agar 'Hai, Adyansyah!' muncul di Dashboard
+      // Menyimpan token ke localStorage
       localStorage.setItem('accessToken', response.data.accessToken);
 
       navigate('/dashboard');
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);
+      } else {
+        setMsg("Gagal terhubung ke server. Pastikan Backend menyala di Port 5001.");
       }
     }
   };

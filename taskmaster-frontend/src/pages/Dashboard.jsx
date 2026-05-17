@@ -39,7 +39,7 @@ const Dashboard = () => {
 
     const fetchTasks = async (token) => {
         try {
-            const res = await axios.get('http://localhost:5000/tasks', {
+            const res = await axios.get('http://localhost:5001/tasks', {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTasks(res.data);
@@ -52,8 +52,8 @@ const Dashboard = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('accessToken');
-        try {
-            await axios.post('http://localhost:5000/tasks', form, {
+        try { 
+            await axios.post('http://localhost:5001/tasks', form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setShowAddModal(false);
@@ -69,8 +69,8 @@ const Dashboard = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('accessToken');
-        try {
-            await axios.patch(`http://localhost:5000/tasks/${editForm.id}`, editForm, {
+        try { 
+            await axios.patch(`http://localhost:5001/tasks/${editForm.id}`, editForm, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setIsEditing(false);
@@ -88,7 +88,7 @@ const Dashboard = () => {
         if (window.confirm("Apakah kamu yakin ingin menghapus tugas ini?")) {
             const token = localStorage.getItem('accessToken');
             try {
-                await axios.delete(`http://localhost:5000/tasks/${id}`, {
+                await axios.delete(`http://localhost:5001/tasks/${id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setDetailTask(null);
