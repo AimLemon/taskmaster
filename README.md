@@ -47,26 +47,8 @@ npm test -- --coverage --forceExit
 ## Implementasi Test Case
 
 
-
 <img width="890" height="432" alt="8954b5dc-0080-4f17-ad09-4a4281770b06" src="https://github.com/user-attachments/assets/3bf9c643-943d-4359-9d9b-d6d6705c316d" />
 <img width="870" height="334" alt="1 2 Test Case Berhasil" src="https://github.com/user-attachments/assets/dd08f3fe-2ef3-4e9d-9e86-94b00829aa89" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 Regression Test Suite terdiri dari 6 test case komprehensif yang mencakup validasi, registrasi, dan login (skenario error handling).
@@ -86,6 +68,10 @@ Regression Test Suite terdiri dari 6 test case komprehensif yang mencakup valida
 
 Untuk membuktikan regression testing berjalan dengan baik, dilakukan simulasi perubahan kode (merusak kode secara sengaja) pada fungsi `Register` di `UserController.js`. 
 
+<img width="905" height="619" alt="gagal 2 1" src="https://github.com/user-attachments/assets/4a7d47e0-2e64-4980-a8de-7c4749831115" />
+<img width="901" height="554" alt="gagal 2 2" src="https://github.com/user-attachments/assets/8cf6d8ec-3df2-4a83-a118-e55595f0107d" />
+
+
 Validasi kecocokan password dimatikan dengan menjadikannya komentar:
 \`\`\`javascript
 // if (password !== confPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok!" });
@@ -96,6 +82,9 @@ Setelah pelindung tersebut dihapus, test case **"Safri 2: Register gagal jika co
 ---
 
 ## Code Coverage
+
+<img width="958" height="444" alt="1 Screenshot Laporan Coverage" src="https://github.com/user-attachments/assets/2c3b16fd-9cea-4ffe-a3d2-0b808a23aae2" />
+
 
 Coverage diukur menggunakan perintah: `npm test -- --coverage`
 
@@ -111,6 +100,9 @@ Coverage diukur menggunakan perintah: `npm test -- --coverage`
 ---
 
 ## Integrasi GitHub Actions
+
+<img width="1060" height="220" alt="2 2 Screenshot workflow GitHub Actions berhasil dijalankan" src="https://github.com/user-attachments/assets/7c57e526-9bb8-4cdc-b9cf-f2e931508550" />
+
 
 Continuous Integration (CI) diimplementasikan menggunakan GitHub Actions. Workflow akan dijalankan secara otomatis setiap kali terjadi `push` ke branch `master`.
 
