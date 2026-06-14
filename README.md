@@ -48,9 +48,8 @@ npm test -- --coverage --forceExit
 
 
 
-
-
 <img width="890" height="432" alt="8954b5dc-0080-4f17-ad09-4a4281770b06" src="https://github.com/user-attachments/assets/3bf9c643-943d-4359-9d9b-d6d6705c316d" />
+<img width="870" height="334" alt="1 2 Test Case Berhasil" src="https://github.com/user-attachments/assets/dd08f3fe-2ef3-4e9d-9e86-94b00829aa89" />
 
 
 
@@ -68,19 +67,6 @@ npm test -- --coverage --forceExit
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-<img width="890" height="432" alt="1 1 Test Case Berhasil " src="https://github.com/user-attachments/assets/56df503b-47ab-4f79-99b5-1c3936c58dfa" />
 
 
 Regression Test Suite terdiri dari 6 test case komprehensif yang mencakup validasi, registrasi, dan login (skenario error handling).
