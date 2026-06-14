@@ -1,72 +1,109 @@
+# Regression Test Suite REST API - TaskMaster
+
 ![Regression Test CI](https://github.com/AimLemon/taskmaster/actions/workflows/test.yml/badge.svg)
 
-# Getting Started with Create React App
+## Deskripsi Proyek
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Repository ini berisi implementasi **Regression Test Suite** pada REST API menggunakan Jest dan Supertest. Pengujian ini bertujuan untuk memastikan bahwa perubahan kode tidak merusak fungsionalitas sistem yang sudah berjalan sebelumnya. Testing difokuskan pada modul Autentikasi dan Validasi User.
 
-## Available Scripts
+## Teknologi yang Digunakan
 
-In the project directory, you can run:
+* **Node.js & Express.js** (Backend Framework)
+* **Sequelize & PostgreSQL** (Database & ORM)
+* **Jest & Supertest** (Testing Framework)
+* **GitHub Actions** (CI/CD Automation)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Cara Menjalankan Project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**1. Clone Repository**
+\`\`\`bash
+git clone https://github.com/AimLemon/taskmaster.git
+\`\`\`
 
-### `npm test`
+**2. Masuk ke Folder Backend**
+\`\`\`bash
+cd taskmaster-backend
+\`\`\`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**3. Install Dependency**
+\`\`\`bash
+npm install
+\`\`\`
 
-### `npm run build`
+**4. Menjalankan Regression Test**
+\`\`\`bash
+npm test -- --forceExit
+\`\`\`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**5. Menjalankan Test dengan Coverage**
+\`\`\`bash
+npm test -- --coverage --forceExit
+\`\`\`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Implementasi Test Case
 
-### `npm run eject`
+Regression Test Suite terdiri dari 6 test case komprehensif yang mencakup validasi, registrasi, dan login (skenario error handling).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+| Modul | PIC | Deskripsi Test Case | Status |
+| :--- | :--- | :--- | :--- |
+| **Validation** | Agim | Register gagal jika format email tidak valid (400) | ✅ Passed |
+| **Validation** | Agim | Register gagal jika password kurang dari 6 karakter (400) | ✅ Passed |
+| **Registration** | Safri | Register gagal jika email sudah terdaftar (400) | ✅ Passed |
+| **Registration** | Safri | Register gagal jika confirm password tidak sama (400) | ✅ Passed |
+| **Auth/Login** | Adyansyah | Login gagal jika email tidak terdaftar (404) | ✅ Passed |
+| **Auth/Login** | Adyansyah | Login gagal jika password tidak cocok (400) | ✅ Passed |
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Demonstrasi Regression Testing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Untuk membuktikan regression testing berjalan dengan baik, dilakukan simulasi perubahan kode (merusak kode secara sengaja) pada fungsi `Register` di `UserController.js`. 
 
-## Learn More
+Validasi kecocokan password dimatikan dengan menjadikannya komentar:
+\`\`\`javascript
+// if (password !== confPassword) return res.status(400).json({ msg: "Password dan Confirm Password tidak cocok!" });
+\`\`\`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Setelah pelindung tersebut dihapus, test case **"Safri 2: Register gagal jika confirm password tidak sama"** langsung mengalami kegagalan (*Failing Test*). Hal ini membuktikan bahwa regression test suite berhasil mendeteksi perubahan/bug yang tidak disengaja pada sistem.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Code Coverage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Coverage diukur menggunakan perintah: `npm test -- --coverage`
 
-### Analyzing the Bundle Size
+| Metric | Hasil |
+| :--- | :--- |
+| **Statements** | 29.29% |
+| **Branches** | 26.92% |
+| **Functions** | 10.52% |
+| **Lines** | **30.11%** |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+*(Catatan: Nilai coverage disesuaikan dengan penerapan metode Bypass Database untuk stabilitas pengujian pada server CI GitHub Actions).*
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Integrasi GitHub Actions
 
-### Advanced Configuration
+Continuous Integration (CI) diimplementasikan menggunakan GitHub Actions. Workflow akan dijalankan secara otomatis setiap kali terjadi `push` ke branch `master`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**File workflow:** `.github/workflows/test.yml`
 
-### Deployment
+Tahapan workflow meliputi:
+1. Checkout repository
+2. Setup Node.js (v18)
+3. Install dependency (`npm install`)
+4. Menjalankan Jest Test Suite (`npm test`)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## Kesimpulan
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Regression Test Suite berhasil diimplementasikan menggunakan Jest dan Supertest. Hasil pengujian menunjukkan bahwa:
+* Seluruh test case berhasil mendeteksi respons error (400 & 404) dengan akurat.
+* Regression bug berhasil dideteksi ketika validasi kecocokan password dihapus.
+* GitHub Actions berhasil menjalankan test secara otomatis sebagai gerbang pelindung (CI/CD) setiap kali terjadi perubahan kode pada repository.
