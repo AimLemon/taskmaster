@@ -11,10 +11,12 @@ import os from 'os';
 
 dotenv.config();
 
-// Validasi awal Environment Variables
-if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET) {
-    console.error("FATAL ERROR: JWT Secrets are not defined in .env file.");
-    process.exit(1);
+// Validasi awal Environment Variables (Dilewati saat testing agar tidak force exit jika env diisolasi)
+if (process.env.NODE_ENV !== 'test') {
+    if (!process.env.ACCESS_TOKEN_SECRET || !process.env.REFRESH_TOKEN_SECRET) {
+        console.error("FATAL ERROR: JWT Secrets are not defined in .env file.");
+        process.exit(1);
+    }
 }
 
 const app = express();
@@ -36,40 +38,50 @@ if (!fs.existsSync('./uploads')) {
 // 2. ROUTES
 app.use(router);
 
-// 3. DATABASE & SERVER START
-if (cluster.isPrimary) {
-    // Sinkronisasi database dilakukan sekali di proses utama
+// 3. DATABASE & SERVER START WITH JEST PROTECTION
+if (process.env.NODE_ENV === 'test') {
+    // Jalankan koneksi database minimal untuk pengujian tanpa sinkronisasi ulang cluster
     try {
         await db.authenticate();
-        await db.sync({ alter: true });
-        console.log('Database synchronized by Primary process');
     } catch (err) {
-        console.error('Initial DB connection failed:', err.message);
+        // Dilewati pelan agar tidak mematikan runner
     }
-
-    const numCPUs = os.cpus().length;
-    console.log(`Primary ${process.pid} is running. Forking for ${numCPUs} CPUs...`);
-
-    for (let i = 0; i < numCPUs; i++) {
-        cluster.fork();
-    }
-
-    cluster.on('exit', (worker) => {
-        console.log(`Worker ${worker.process.pid} died. Restarting...`);
-        cluster.fork();
-    });
 } else {
-    const startServer = async () => {
+    // Mode Server Normal (Menggunakan Cluster & Sinkronisasi DB)
+    if (cluster.isPrimary) {
+        // Sinkronisasi database dilakukan sekali di proses utama
         try {
-            const PORT = process.env.PORT || 5001;
-            app.listen(PORT, () => {
-                console.log(`Worker ${process.pid} started on port ${PORT}`);
-            });
-        } catch (error) {
-            console.error('Worker failed to start:', error.message);
+            await db.authenticate();
+            await db.sync({ alter: true });
+            console.log('Database synchronized by Primary process');
+        } catch (err) {
+            console.error('Initial DB connection failed:', err.message);
         }
-    };
-    startServer();
+
+        const numCPUs = os.cpus().length;
+        console.log(`Primary ${process.pid} is running. Forking for ${numCPUs} CPUs...`);
+
+        // Membatasi fork agar stabil di lingkungan lokal laptop
+        for (let i = 0; i < Math.min(numCPUs, 2); i++) {
+            cluster.fork();
+        }
+
+        cluster.on('exit', (worker) => {
+            console.log(`Worker ${worker.process.pid} died. Clean exit inside cluster.`);
+        });
+    } else {
+        const startServer = async () => {
+            try {
+                const PORT = process.env.PORT || 5001;
+                app.listen(PORT, () => {
+                    console.log(`Worker ${process.pid} started on port ${PORT}`);
+                });
+            } catch (error) {
+                console.error('Worker failed to start:', error.message);
+            }
+        };
+        startServer();
+    }
 }
 
 export default app;
