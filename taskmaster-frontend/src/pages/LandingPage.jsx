@@ -1,14 +1,15 @@
 import React from 'react';
 import './LandingPage.css';
 import { Link } from 'react-router-dom';
+import logo from '../assets/taskmastericon.png';
 
 const LandingPage = () => {
   return (
     <div className="landing-container">
       {/* Icon Jam/Tugas sesuai desain */}
-      <div className="landing-icon">🕒</div>
+      <img src={logo} alt="TaskMaster Logo" className="landing-icon-img" style={{ width: '100px', marginBottom: '20px' }} />
       
-      <h1 className="landing-title">Task Remainder</h1>
+      <h1 className="landing-title">TaskMaster</h1>
       
       <p className="landing-description">
         Kelola tugas, rencana, atur prioritas, dan jangan biarkan deadline menghambat prestasi dan tujuanmu. Sederhana, cepat dan terorganisir.
@@ -20,10 +21,6 @@ const LandingPage = () => {
         <Link to="/login" className="btn btn-primary" style={{ textDecoration: 'none' }}>
           Masuk ke Akun
         </Link>
-        
-        <button className="btn btn-google">
-          <span>G</span> Lanjut dengan Google
-        </button>
         
         <Link to="/register" className="btn btn-register">Daftar Sekarang</Link>
       </div>

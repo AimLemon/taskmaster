@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios'; // Import axios
 import './RegisterPage.css';
+import logo from '../assets/taskmastericon.png';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -39,11 +40,7 @@ const RegisterPage = () => {
 
       <div className="register-header">
         <div className="register-icon">
-          <svg viewBox="0 0 24 24" width="60" height="60" fill="none" stroke="#1e3a8a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 7v5l3 3" />
-            <circle cx="12" cy="12" r="9" />
-            <path d="M16 21H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z" />
-          </svg>
+          <img src={logo} alt="TaskMaster Logo" width="60" height="60" />
         </div>
         <h1 className="register-title">Daftar Akun</h1>
         <p className="register-subtitle">Mulai atur tugas - tugasmu</p>
@@ -59,6 +56,7 @@ const RegisterPage = () => {
             type="text" 
             placeholder="Username" 
             value={name}
+            style={{ paddingLeft: '45px' }}
             onChange={(e) => setName(e.target.value)}
             required 
           />
@@ -70,6 +68,7 @@ const RegisterPage = () => {
             type="email" 
             placeholder="Email" 
             value={email}
+            style={{ paddingLeft: '45px' }}
             onChange={(e) => setEmail(e.target.value)}
             required 
           />
@@ -81,6 +80,7 @@ const RegisterPage = () => {
             type="password" 
             placeholder="Password (Min. 6 Karakter)" 
             value={password}
+            style={{ paddingLeft: '45px' }}
             onChange={(e) => setPassword(e.target.value)}
             required 
           />
@@ -93,6 +93,7 @@ const RegisterPage = () => {
             type="password" 
             placeholder="Konfirmasi Password" 
             value={confPassword}
+            style={{ paddingLeft: '45px' }}
             onChange={(e) => setConfPassword(e.target.value)}
             required 
           />
@@ -101,11 +102,6 @@ const RegisterPage = () => {
 
         {/* Tombol diperbaiki teksnya menjadi "Daftar" agar tidak bingung */}
         <button type="submit" className="btn-register-submit">Daftar</button>
-        
-        <button type="button" className="btn-google-register">
-          <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="Google" width="20" />
-          Lanjut dengan Google
-        </button>
       </form>
 
       <p className="login-prompt">

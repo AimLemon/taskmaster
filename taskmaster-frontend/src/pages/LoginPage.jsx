@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import './LoginPage.css';
+import logo from '../assets/taskmastericon.png';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -44,10 +45,7 @@ const LoginPage = () => {
       <div className="login-card">
         <div className="login-brand">
           <div className="brand-logo">
-            <svg viewBox="0 0 24 24" width="50" height="50" fill="none" stroke="#1e3a8a" strokeWidth="2">
-              <path d="M12 7v5l3 3" />
-              <circle cx="12" cy="12" r="9" />
-            </svg>
+            <img src={logo} alt="TaskMaster Logo" width="100" height="100" />
           </div>
           <h1>Selamat Datang</h1>
           <p>Masuk untuk mengatur tugasmu</p>
@@ -77,13 +75,6 @@ const LoginPage = () => {
           </div>
 
           <button type="submit" className="btn-primary">Login</button>
-
-          <div className="divider">atau</div>
-
-          <button type="button" className="btn-google">
-            <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" alt="G" />
-            Lanjut dengan Google
-          </button>
         </form>
 
         <p className="footer-text">

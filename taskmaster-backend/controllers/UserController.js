@@ -26,8 +26,10 @@ export const Register = async (req, res) => {
         });
         res.json({ msg: "Register Berhasil" });
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ msg: error.message });
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(400).json({ msg: "Email sudah terdaftar!" });
+        }
+        res.status(500).json({ msg: "Terjadi kesalahan pada server" });
     }
 }
 
@@ -50,7 +52,7 @@ export const Login = async (req, res) => {
         const name = user.name;
         const email = user.email;
         const accessToken = jwt.sign({ userId, name, email }, process.env.ACCESS_TOKEN_SECRET, {
-            expiresIn: '1d'
+            expiresIn: '15m' // Access Token singkat lebih aman
         });
         const refreshToken = jwt.sign({ userId, name, email }, process.env.REFRESH_TOKEN_SECRET, {
             expiresIn: '1d'
@@ -73,13 +75,13 @@ export const Login = async (req, res) => {
 export const Logout = async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) return res.sendStatus(204);
-    const user = await Users.findAll({
+    const user = await Users.findOne({
         where: {
             refresh_token: refreshToken
         }
     });
-    if (!user[0]) return res.sendStatus(204);
-    const userId = user[0].id;
+    if (!user) return res.sendStatus(204);
+    const userId = user.id;
     await Users.update({ refresh_token: null }, {
         where: {
             id: userId
@@ -87,4 +89,18 @@ export const Logout = async (req, res) => {
     });
     res.clearCookie('refreshToken');
     return res.sendStatus(200);
+}
+
+export const updateUser = async (req, res) => {
+    const { name, email } = req.body;
+    try {
+        await Users.update({ name, email }, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({ msg: "Update Berhasil" });
+    } catch (error) {
+        res.status(400).json({ msg: error.message });
+    }
 }

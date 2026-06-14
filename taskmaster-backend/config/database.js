@@ -10,7 +10,13 @@ const db = new Sequelize(
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: 'postgres',
-    logging: false, // Mematikan log query agar terminal bersih
+    logging: false,
+    pool: {
+      max: 50,      // Maksimal koneksi simultan per worker
+      min: 0,
+      acquire: 60000, // Menambah waktu tunggu koneksi menjadi 60 detik untuk antrean tinggi
+      idle: 10000
+    }
   }
 );
 
