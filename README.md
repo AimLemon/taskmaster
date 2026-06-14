@@ -46,6 +46,43 @@ npm test -- --coverage --forceExit
 
 ## Implementasi Test Case
 
+
+
+
+
+<img width="890" height="432" alt="8954b5dc-0080-4f17-ad09-4a4281770b06" src="https://github.com/user-attachments/assets/3bf9c643-943d-4359-9d9b-d6d6705c316d" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<img width="890" height="432" alt="1 1 Test Case Berhasil " src="https://github.com/user-attachments/assets/56df503b-47ab-4f79-99b5-1c3936c58dfa" />
+
+
 Regression Test Suite terdiri dari 6 test case komprehensif yang mencakup validasi, registrasi, dan login (skenario error handling).
 
 | Modul | PIC | Deskripsi Test Case | Status |
@@ -98,6 +135,7 @@ Tahapan workflow meliputi:
 2. Setup Node.js (v18)
 3. Install dependency (`npm install`)
 4. Menjalankan Jest Test Suite (`npm test`)
+<img width="890" height="432" alt="1 1 Test Case Berhasil " src="https://github.com/user-attachments/assets/89a5166e-8aff-45f1-b280-c6166b62f452" />
 
 ---
 
